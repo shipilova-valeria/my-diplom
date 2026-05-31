@@ -1,0 +1,55 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "ERP: Docker (PostgreSQL)",
+      "type": "shell",
+      "command": "docker compose up -d",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
+      "label": "ERP: Backend",
+      "type": "shell",
+      "command": "npm run dev",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "dependsOn": ["ERP: Backend install"]
+    },
+    {
+      "label": "ERP: Backend install",
+      "type": "shell",
+      "command": "npm install",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "problemMatcher": []
+    },
+    {
+      "label": "ERP: Frontend",
+      "type": "shell",
+      "command": "npm run dev",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "dependsOn": ["ERP: Frontend install"]
+    },
+    {
+      "label": "ERP: Frontend install",
+      "type": "shell",
+      "command": "npm install",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "problemMatcher": []
+    },
+    {
+      "label": "ERP: Установить зависимости",
+      "dependsOn": ["ERP: Backend install", "ERP: Frontend install"],
+      "problemMatcher": []
+    },
+    {
+      "label": "ERP: Запуск (всё)",
+      "dependsOn": ["ERP: Docker (PostgreSQL)", "ERP: Backend", "ERP: Frontend"],
+      "dependsOrder": "sequence",
+      "problemMatcher": []
+    }
+  ]
+}
