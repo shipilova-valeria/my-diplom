@@ -14,17 +14,15 @@ INSERT INTO users (email, password_hash, last_name, first_name, middle_name, pos
 ('d.kozlov@ilavista.by', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'Козлов', 'Дмитрий', 'Сергеевич', 'QA Engineer', '+375 29 400 00 04', 'participant', 'active', '2024-01-10');
 
 INSERT INTO projects (name, description, start_date, deadline, pm_id, status, allocated_hours, progress) VALUES
-('CRM Portal', 'Корпоративный CRM портал', '2025-10-01', '2026-06-15', 3, 'active', 240, 45),
-('Mobile App', 'Мобильное приложение для клиентов', '2025-11-15', '2026-05-20', 3, 'active', 180, 62),
-('E-commerce B2B', 'B2B маркетплейс', '2025-09-01', '2026-07-01', 3, 'on_review', 320, 78),
-('Marketplace UX', 'UX исследование маркетплейса', '2026-01-10', '2026-05-25', 3, 'active', 80, 30),
-('Legacy Migration', 'Миграция legacy системы', '2024-06-01', '2025-12-01', 3, 'archived', 500, 100),
+('CRM Portal', 'Корпоративный CRM портал', '2025-10-01', '2026-07-15', 3, 'active', 240, 45),
+('Mobile App', 'Мобильное приложение для клиентов', '2025-09-22', '2026-05-20', 3, 'active', 180, 62),
+('E-commerce B2B', 'B2B маркетплейс', '2025-09-01', '2026-08-01', 3, 'on_review', 320, 78),
 ('Analytics Dashboard', 'Дашборд аналитики', '2026-02-01', '2026-08-10', 3, 'paused', 120, 15);
 
 INSERT INTO project_members (project_id, user_id, allocated_hours, logged_hours) VALUES
 (1, 8, 70, 2), (1, 10, 50, 30), (1, 12, 20, 5),
 (2, 8, 35, 19), (2, 10, 45, 25), (2, 12, 30, 12), (2, 7, 30, 8), (2, 9, 40, 10), (2, 11, 40, 12),
-(3, 8, 80, 76), (3, 7, 60, 55),
+(3, 8, 80, 76), (3, 6, 60, 55), (3, 9, 50, 20), (3, 11, 45, 18), (3, 12, 35, 12),
 (4, 7, 15, 14), (4, 10, 25, 8);
 
 INSERT INTO tasks (project_id, title, description, status, priority, assignee_id, deadline) VALUES
@@ -50,6 +48,23 @@ INSERT INTO tasks (project_id, title, description, status, priority, assignee_id
 (2, 'Code review API платежей', 'Проверка интеграции с платёжным шлюзом', 'in_review', 'high', 9, '2026-06-07'),
 (2, 'Навигация приложения', 'Tab bar и deep links', 'done', 'medium', 11, '2026-05-28'),
 (2, 'Регресс основных сценариев', 'Чек-лист регресса релиза 0.9', 'done', 'low', 12, '2026-05-30');
+
+INSERT INTO tasks (project_id, title, description, status, priority, assignee_id, deadline) VALUES
+(3, 'Матрица ролей и сценариев закупки', 'User stories и BPMN для B2B-заказов', 'todo', 'high', 6, '2026-06-15'),
+(3, 'API каталога и прайс-листов', 'REST-эндпоинты для номенклатуры и цен', 'in_progress', 'high', 9, '2026-06-12'),
+(3, 'Корзина и оформление заказа', 'UI checkout и интеграция с API', 'in_review', 'medium', 11, '2026-06-10'),
+(3, 'Регресс оформления заказа', 'Smoke и регресс сценариев checkout', 'done', 'medium', 12, '2026-06-08');
+
+-- Трекинг времени (таблица task_time_entries): задачи 21–24 — проект E-commerce B2B
+INSERT INTO task_time_entries (task_id, user_id, started_at, ended_at, minutes) VALUES
+(21, 6, '2026-05-27 09:00:00+03', '2026-05-27 10:30:00+03', 90),
+(21, 6, '2026-05-28 14:00:00+03', '2026-05-28 15:15:00+03', 75),
+(22, 9, '2026-05-26 10:00:00+03', '2026-05-26 13:20:00+03', 200),
+(22, 9, '2026-05-29 11:00:00+03', '2026-05-29 12:40:00+03', 100),
+(23, 11, '2026-05-25 09:30:00+03', '2026-05-25 12:00:00+03', 150),
+(23, 11, '2026-05-30 10:00:00+03', '2026-05-30 11:30:00+03', 90),
+(24, 12, '2026-05-24 13:00:00+03', '2026-05-24 15:00:00+03', 120),
+(24, 12, '2026-05-31 09:00:00+03', '2026-05-31 10:15:00+03', 75);
 
 INSERT INTO task_comments (task_id, user_id, content) VALUES
 (5, 3, 'Приоритет — завершить до демо заказчику.'),

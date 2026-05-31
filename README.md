@@ -14,7 +14,7 @@
 
 ```bash
 git clone https://github.com/shipilova-valeria/my-diplom.git
-cd erp-system
+cd my-diplom
 ```
 
 ### 2. Установите зависимости
@@ -30,11 +30,15 @@ copy backend\.env.example backend\.env
 ```
 
 ### 4. Запустите базу данных
+Установите **Docker Desktop** (нужен только для PostgreSQL) и запустите его (статус Running). 
+Можно скачать по ссылке: https://docs.docker.com/desktop/setup/install/windows-install/ 
+
+Проект в Docker вручную добавлять **не нужно** — достаточно выполнить команду ниже.
 
 ```bash
 docker compose up -d
 ```
-При первом запуске создаются таблицы и начальные данные из папки `database/`.
+Если ошибка `container name "erp-postgres" is already in use` — контейнер уже создан. Выполните `docker ps`: если PostgreSQL уже **Up**, этот шаг можно пропустить.
 
 ### 5. Запустите backend
 
@@ -48,9 +52,10 @@ API будет доступен по адресу: http://localhost:3000
 
 ### 6. Запустите frontend
 
-Во **втором** терминале (из корня проекта):
+Backend должен продолжать работать в первом терминале. Откройте **второе** окно командной строки (PowerShell или cmd), перейдите в папку проекта и запустите frontend:
 
 ```bash
+cd my-diplom
 cd frontend
 npm run dev
 ```
