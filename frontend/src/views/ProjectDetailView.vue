@@ -26,9 +26,8 @@
       </div>
     </header>
 
-    <MonthNavigator />
-
     <div v-if="project" class="card project-hours">
+      <MonthNavigator />
       <div class="project-hours__row">
         <span class="project-hours__label">Затрачено за {{ month.label }}</span>
         <span class="project-hours__value">{{ hoursLabel(project) }}</span>
@@ -288,6 +287,10 @@ watch([month.year, month.month], loadProject);
 .project-hours {
   margin-bottom: 20px;
   padding: 18px 20px;
+}
+
+.project-hours :deep(.month-nav) {
+  margin-bottom: 16px;
 }
 
 .project-hours__row {

@@ -1,5 +1,4 @@
 import pool from '../config/db.js';
-import { taskMonthSql } from '../utils/month.js';
 import { getSummariesForTasks } from './taskTime.js';
 import { ensureProjectMember } from './access.js';
 
@@ -26,7 +25,7 @@ export function formatTask(row) {
   };
 }
 
-export async function listByProject(projectId, { search, assigneeId, status, start, end } = {}) {
+export async function listByProject(projectId, { search, assigneeId, status } = {}) {
   let query = `
     SELECT t.*, CONCAT(u.last_name, ' ', LEFT(u.first_name, 1), '.') AS assignee_name
     FROM tasks t
@@ -35,12 +34,6 @@ export async function listByProject(projectId, { search, assigneeId, status, sta
   `;
   const params = [projectId];
   let i = 2;
-
-  if (start && end) {
-    query += taskMonthSql('t', `$${i}`, `$${i + 1}`);
-    params.push(start, end);
-    i += 2;
-  }
 
   if (search) {
     query += ` AND (t.title ILIKE $${i} OR t.description ILIKE $${i})`;

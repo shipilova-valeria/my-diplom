@@ -34,7 +34,8 @@ router.get('/project/:projectId', async (req, res, next) => {
     if (!(await canAccessProject(req.user, projectId))) {
       return res.status(403).json({ error: 'Нет доступа' });
     }
-    const list = await tasks.listByProject(projectId, req.query);
+    const { search, assigneeId, status } = req.query;
+    const list = await tasks.listByProject(projectId, { search, assigneeId, status });
     res.json(list);
   } catch (err) {
     next(err);

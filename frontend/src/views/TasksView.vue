@@ -2,8 +2,6 @@
   <div class="tasks-page">
     <h1 class="page-title">Задачи</h1>
 
-    <MonthNavigator />
-
     <div class="project-select">
       <label class="text-muted">Выберите проект:</label>
       <select v-model="selectedProjectId" class="input" @change="onProjectChange">
@@ -51,13 +49,10 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import api from '../api/client.js';
 import { useAuthStore } from '../stores/auth.js';
-import { useMonthFilter } from '../composables/useMonthFilter.js';
-import MonthNavigator from '../components/MonthNavigator.vue';
 import KanbanBoard from '../components/KanbanBoard.vue';
 import TaskFormModal from '../components/TaskFormModal.vue';
 
 const auth = useAuthStore();
-const month = useMonthFilter();
 const EMPTY_BOARD = [
   { id: 'todo', title: 'К выполнению', tasks: [], count: 0 },
   { id: 'in_progress', title: 'В работе', tasks: [], count: 0 },
@@ -80,7 +75,7 @@ const displayBoard = computed(() =>
 );
 
 async function loadProjects() {
-  const { data } = await api.get('/projects', { params: month.params() });
+  const { data } = await api.get('/projects');
   projectList.value = data;
 }
 
@@ -145,9 +140,11 @@ async function deleteTask() {
   load();
 }
 
-onMounted(loadProjects);
+onMounted(async () => {
+  await loadProjects();
+  await load();
+});
 watch(selectedProjectId, load);
-watch([month.year, month.month], loadProjects);
 </script>
 
 <style scoped>
