@@ -49,21 +49,15 @@ async function runStartupMigrations() {
   try {
     try {
       await pool.query(`ALTER TYPE user_role ADD VALUE IF NOT EXISTS 'head'`);
-    } catch {
-      /* skip */
-    }
+    } catch {}
     try {
       await pool.query(`ALTER TABLE projects ADD COLUMN IF NOT EXISTS start_date DATE`);
-    } catch {
-      /* skip */
-    }
+    } catch {}
     try {
       await pool.query(
         `ALTER TABLE users ADD COLUMN IF NOT EXISTS must_change_password BOOLEAN NOT NULL DEFAULT false`
       );
-    } catch {
-      /* skip */
-    }
+    } catch {}
     try {
       await pool.query(`
         CREATE TABLE IF NOT EXISTS task_time_entries (
@@ -82,9 +76,7 @@ async function runStartupMigrations() {
         CREATE UNIQUE INDEX IF NOT EXISTS idx_task_time_user_active
         ON task_time_entries(user_id) WHERE ended_at IS NULL
       `);
-    } catch {
-      /* skip */
-    }
+    } catch {}
     try {
       await pool.query(`
         INSERT INTO project_members (project_id, user_id, allocated_hours, logged_hours)
@@ -93,9 +85,7 @@ async function runStartupMigrations() {
         WHERE t.assignee_id IS NOT NULL
         ON CONFLICT (project_id, user_id) DO NOTHING
       `);
-    } catch {
-      /* skip */
-    }
+    } catch {}
     await ensureUsers();
     await syncUserPasswords();
   } catch (e) {

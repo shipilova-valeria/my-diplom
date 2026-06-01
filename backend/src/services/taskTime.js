@@ -14,7 +14,6 @@ function entryMinutes(entry) {
   return liveMinutes(entry.started_at);
 }
 
-/** SQL: минуты по записи времени (включая активный таймер). */
 export function entryMinutesSql(alias = 'e') {
   return `CASE
     WHEN ${alias}.ended_at IS NOT NULL THEN COALESCE(${alias}.minutes, 0)
@@ -26,7 +25,6 @@ export function minutesToHours(minutes) {
   return Math.round((Number(minutes) / 60) * 10) / 10;
 }
 
-/** Сумма минут по проектам за период [start, end]. */
 export async function getTrackedMinutesByProject(projectIds, start, end) {
   if (!projectIds?.length || !start || !end) return {};
   const { rows } = await pool.query(

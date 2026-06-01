@@ -1,4 +1,3 @@
--- Схема БД ERP-системы
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 CREATE TYPE user_role AS ENUM ('admin', 'head', 'manager', 'participant');

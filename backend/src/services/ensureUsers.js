@@ -8,7 +8,6 @@ const NEW_USERS = [
   ['j.antonova@ilavista.by', 'Антонова', 'Юлия', 'Михайловна', 'Business Analyst', 'participant'],
 ];
 
-/** Обновление учётных записей и данных при старте сервера. */
 export async function ensureUsers() {
   await pool.query(
     `UPDATE users SET email = 'e.smirnova@ilavista.by' WHERE email = 'manager@ilavista.by'`

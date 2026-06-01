@@ -1,4 +1,3 @@
--- Учёт времени по задачам (несколько участников на одну задачу)
 CREATE TABLE IF NOT EXISTS task_time_entries (
   id SERIAL PRIMARY KEY,
   task_id INTEGER NOT NULL REFERENCES tasks(id) ON DELETE CASCADE,
