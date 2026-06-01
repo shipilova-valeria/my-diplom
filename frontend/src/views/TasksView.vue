@@ -92,7 +92,7 @@ async function load() {
   loading.value = true;
   try {
     const { data } = await api.get(`/tasks/project/${selectedProjectId.value}/kanban`, {
-      params: { ...month.params(), search: search.value || undefined },
+      params: { search: search.value || undefined },
     });
     board.value = data;
   } finally {
@@ -147,10 +147,7 @@ async function deleteTask() {
 
 onMounted(loadProjects);
 watch(selectedProjectId, load);
-watch([month.year, month.month], () => {
-  loadProjects();
-  load();
-});
+watch([month.year, month.month], loadProjects);
 </script>
 
 <style scoped>

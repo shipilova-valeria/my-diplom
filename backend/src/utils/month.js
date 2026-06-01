@@ -33,9 +33,10 @@ export function parseMonthQuery(query = {}) {
 
 export function projectMonthSql(alias = 'p', startParam, endParam) {
   return ` AND (
-    (${alias}.deadline BETWEEN ${startParam} AND ${endParam})
-    OR (${alias}.start_date BETWEEN ${startParam} AND ${endParam})
-    OR (${alias}.created_at::date BETWEEN ${startParam} AND ${endParam})
+    (
+      COALESCE(${alias}.start_date, ${alias}.created_at::date) <= ${endParam}::date
+      AND (${alias}.deadline IS NULL OR ${alias}.deadline >= ${startParam}::date)
+    )
     OR EXISTS (
       SELECT 1 FROM tasks t
       WHERE t.project_id = ${alias}.id AND (

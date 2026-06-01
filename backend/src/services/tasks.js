@@ -61,8 +61,8 @@ export async function listByProject(projectId, { search, assigneeId, status, sta
   return rows.map(formatTask);
 }
 
-export async function getKanban(projectId, search, start, end, currentUserId = null) {
-  const tasks = await listByProject(projectId, { search, start, end });
+export async function getKanban(projectId, search, currentUserId = null) {
+  const tasks = await listByProject(projectId, { search });
   const timeMap = await getSummariesForTasks(
     tasks.map((t) => t.id),
     currentUserId

@@ -15,7 +15,7 @@ INSERT INTO users (email, password_hash, last_name, first_name, middle_name, pos
 
 INSERT INTO projects (name, description, start_date, deadline, pm_id, status, allocated_hours, progress) VALUES
 ('CRM Portal', 'Корпоративный CRM портал', '2025-10-01', '2026-07-15', 3, 'active', 240, 45),
-('Mobile App', 'Мобильное приложение для клиентов', '2025-09-22', '2026-05-20', 3, 'active', 180, 62),
+('Mobile App', 'Мобильное приложение для клиентов', '2025-09-22', '2026-09-20', 3, 'active', 180, 62),
 ('E-commerce B2B', 'B2B маркетплейс', '2025-09-01', '2026-08-01', 3, 'on_review', 320, 78),
 ('Analytics Dashboard', 'Дашборд аналитики', '2026-02-01', '2026-08-10', 3, 'paused', 120, 15);
 

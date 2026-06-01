@@ -10,7 +10,13 @@
 
 ## Как запустить
 
-### 1. Клонируйте репозиторий
+### 1. Запустите Docker Desktop
+Установите **Docker Desktop** (нужен только для PostgreSQL) и запустите его (статус *Running*).  
+Скачать: https://docs.docker.com/desktop/setup/install/windows-install/
+
+Проект в Docker вручную добавлять **не нужно** — достаточно команд из этой инструкции.
+
+### 2. Клонируйте репозиторий
 
 ```bash
 git clone https://github.com/shipilova-valeria/my-diplom.git
@@ -30,15 +36,16 @@ copy backend\.env.example backend\.env
 ```
 
 ### 4. Запустите базу данных
-Установите **Docker Desktop** (нужен только для PostgreSQL) и запустите его (статус Running). 
-Можно скачать по ссылке: https://docs.docker.com/desktop/setup/install/windows-install/ 
 
-Проект в Docker вручную добавлять **не нужно** — достаточно выполнить команду ниже.
+Из папки проекта (`my-diplom`):
 
 ```bash
 docker compose up -d
 ```
+
 Если ошибка `container name "erp-postgres" is already in use` — контейнер уже создан. Выполните `docker ps`: если PostgreSQL уже **Up**, этот шаг можно пропустить.
+
+При первом запуске создаются таблицы и начальные данные из папки `database/`.
 
 ### 5. Запустите backend
 
@@ -71,5 +78,5 @@ npm run dev
 |------|-------|--------|
 | Администратор | `admin@ilavista.by` | `password123` |
 | Руководитель | `head@ilavista.by` | `volkovvvHead92` |
-| Менеджер | `s.kuznetsov@ilavista.by` | `kuznetsov-851` |
-| Участник | `j.antonova@ilavista.by` | `antonova:2024` |
+| Менеджер | `e.smirnova@ilavista.by` | `smirnovaEl99` |
+| Участник | `a.petrov@ilavista.by` | `p3tr0v#1` |

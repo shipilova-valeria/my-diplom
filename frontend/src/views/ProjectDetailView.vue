@@ -151,7 +151,7 @@ async function loadBoard() {
   loading.value = true;
   try {
     const { data } = await api.get(`/tasks/project/${projectId.value}/kanban`, {
-      params: { ...month.params(), search: search.value || undefined },
+      params: { search: search.value || undefined },
     });
     board.value = data;
   } finally {
@@ -229,10 +229,7 @@ watch(() => route.params.id, async () => {
   await loadBoard();
 });
 
-watch([month.year, month.month], () => {
-  loadProject();
-  loadBoard();
-});
+watch([month.year, month.month], loadProject);
 </script>
 
 <style scoped>

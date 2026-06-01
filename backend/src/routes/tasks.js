@@ -3,7 +3,6 @@ import { authenticate, ensurePasswordChanged, requireRoles } from '../middleware
 import * as tasks from '../services/tasks.js';
 import * as taskTime from '../services/taskTime.js';
 import { canAccessProject, canManageProject } from '../services/access.js';
-import { parseMonthQuery } from '../utils/month.js';
 
 const router = Router();
 router.use(authenticate, ensurePasswordChanged);
@@ -22,14 +21,7 @@ router.get('/project/:projectId/kanban', async (req, res, next) => {
     if (!(await canAccessProject(req.user, projectId))) {
       return res.status(403).json({ error: 'Нет доступа' });
     }
-    const period = parseMonthQuery(req.query);
-    const board = await tasks.getKanban(
-      projectId,
-      req.query.search,
-      period.start,
-      period.end,
-      req.user.id
-    );
+    const board = await tasks.getKanban(projectId, req.query.search, req.user.id);
     res.json(board);
   } catch (err) {
     next(err);
